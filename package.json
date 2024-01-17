@@ -1,6 +1,7 @@
 {
-	"name": "my-vscode-extensions",
-	"displayName": "my-vscode-extensions",
+	"name": "my-extensions",
+	"displayName": "My-Extensions",
+	"publisher": "",
 	"description": "",
 	"version": "0.0.1",
 	"engines": {
@@ -14,17 +15,23 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "my-vscode-extensions.helloWorld",
-				"title": "Hello World"
+				"command": "my-extensions.func-comment",
+				"title": "Function comment"
 			},
 			{
-				"command": "my-vscode-extensions.func-comment",
-				"title": "Function comment"
+				"command": "my-extensions.translate",
+				"title": "Translate"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "my-extensions.func-comment",
+				"key": "alt+e f"
 			}
 		],
 		"configuration": {
 			"type": "object",
-			"title": "my-vscode-extensions",
+			"title": "my-extensions",
 			"properties": {
 				"my-extensions.comment.function.template": {
 					"type": "array",
@@ -58,17 +65,18 @@
 		"test": "vscode-test"
 	},
 	"devDependencies": {
-		"@types/vscode": "^1.85.0",
+		"@types/axios": "^0.14.0",
 		"@types/mocha": "^10.0.6",
 		"@types/node": "18.x",
+		"@types/vscode": "^1.85.0",
 		"@typescript-eslint/eslint-plugin": "^6.13.1",
 		"@typescript-eslint/parser": "^6.13.1",
-		"eslint": "^8.54.0",
-		"typescript": "^5.3.2",
-		"ts-loader": "^9.5.1",
-		"webpack": "^5.89.0",
-		"webpack-cli": "^5.1.4",
 		"@vscode/test-cli": "^0.0.4",
-		"@vscode/test-electron": "^2.3.8"
+		"@vscode/test-electron": "^2.3.8",
+		"eslint": "^8.54.0",
+		"ts-loader": "^9.5.1",
+		"typescript": "^5.3.2",
+		"webpack": "^5.89.0",
+		"webpack-cli": "^5.1.4"
 	}
 }

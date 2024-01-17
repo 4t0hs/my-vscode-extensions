@@ -2,13 +2,26 @@ import { window, TextEditor, Position } from 'vscode';
 import { ConfigManager } from '../configration'
 import { UtilText } from '../utility/text';
 
-export namespace Comments {
+export namespace Comment {
 
 	export function printFunctionComment(configManager: ConfigManager) {
 		let activeEditor = window.activeTextEditor;
 		if (!activeEditor) {
 			return;
 		}
+		const validLanguageIds: string[] = ["c", "cpp"];
+		const languageId: string = activeEditor.document.languageId;
+		let validLanguage: boolean = false;
+		for (let i = 0; i < validLanguageIds.length; i++) {
+			if (validLanguageIds[i] == languageId) {
+				validLanguage = true;
+				break;
+			}
+		}
+		if (!validLanguage) {
+			return;
+		}
+
 		let cursorLine = activeEditor.selection.active.line;
 
 		// 関数の定義を探す
@@ -119,8 +132,8 @@ export namespace Comments {
 	*/
 	function isFunctionString(text: string): boolean {
 		const commentOutWords: string[] = ["//", "/*"];
-		let invalidWords: string[] = ["#"];
-		let declarationPattern = /[0-9a-zA-Z_]+[ \t]+[0-9a-zA-Z_]+[ \t]*\(/g;
+		let invalidWords: string[] = ["#", "typedef"];
+		let declarationPattern = /[0-9a-zA-Z_*]+[ \t]+[0-9a-zA-Z_*]+[ \t]*\(/g;
 		let cropedText: string;
 
 		for (let num = 0; num < commentOutWords.length; num++) {
@@ -203,33 +216,5 @@ export namespace Comments {
 			return -1;
 		}
 
-	}
-
-	enum PUSH_TYPE {
-		BRIEF = 0,
-		PARAM,
-		RETVAL,
-		OTHER,
-	};
-
-	function pushComment(type: PUSH_TYPE, template: string, items?: string[]): string[] {
-		let outputComment: string[] = [];
-		switch (type) {
-			case PUSH_TYPE.PARAM:
-				if (!items) return [];
-				for (let i = 0; i < items?.length; i++) {
-					outputComment.push(template.concat(items[i]));
-				}
-				break;
-			case PUSH_TYPE.RETVAL:
-				if (items) {
-					outputComment.push(template.concat(items[0]));
-				}
-				break;
-			case PUSH_TYPE.BRIEF:
-			case PUSH_TYPE.OTHER:
-				return [template];
-		}
-		return outputComment;
 	}
 }

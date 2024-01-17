@@ -3,35 +3,23 @@
 import { ftruncateSync } from 'fs';
 import * as vscode from 'vscode';
 import { ConfigManager } from './configration'
-import { Comments } from './commands/comments';
+import { Comment } from './commands/comments';
+import {translation} from './translate'
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "my-vscode-extensions" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('my-vscode-extensions.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from my-vscode-extensions!');
-	});
-
-	context.subscriptions.push(disposable);
-
-	disposable = vscode.commands.registerCommand('my-vscode-extensions.func-comment', () => {
-		vscode.window.showInformationMessage("my-vscode-extensions Function Comment execute");
+	let disposable = vscode.commands.registerTextEditorCommand('my-extensions.func-comment', () => {
 		let configManager: ConfigManager = new ConfigManager();
 
-		Comments.printFunctionComment(configManager);
+		Comment.printFunctionComment(configManager);
 	});
+	let tr = vscode.commands.registerCommand("my-extensions.translate", translation.translate);
 
+	let ret = vscode.languages.registerCallHierarchyProvider()
+	
 	context.subscriptions.push(disposable);
+	context.subscriptions.push(tr);
 }
 
 // This method is called when your extension is deactivated
