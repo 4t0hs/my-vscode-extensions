@@ -121,6 +121,10 @@ export namespace Comment {
 				if (spaceSplitWords[1].includes("*")) {
 					spaceSplitWords[1] = spaceSplitWords[1].replaceAll("*", "");
 				}
+				// const
+				if (spaceSplitWords[0].includes("const")) {
+					spaceSplitWords.splice(0, 1);
+				}
 				paramTexts.push(spaceSplitWords[1]);
 			}
 		}
