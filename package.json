@@ -1,9 +1,9 @@
 {
 	"name": "my-extensions",
-	"displayName": "My-Extensions",
+	"displayName": "My Extensions",
 	"publisher": "",
 	"description": "",
-	"version": "0.0.2",
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.85.0"
 	},
@@ -17,10 +17,6 @@
 			{
 				"command": "my-extensions.func-comment",
 				"title": "Function comment"
-			},
-			{
-				"command": "my-extensions.translate",
-				"title": "Translate"
 			}
 		],
 		"keybindings": [
@@ -31,24 +27,21 @@
 		],
 		"configuration": {
 			"type": "object",
-			"title": "my-extensions",
+			"title": "My Extensions",
 			"properties": {
-				"my-extensions.comment.function.template": {
+				"Function Comment.Template": {
 					"type": "array",
 					"default": [
-						"/// @1\t",
-						"/// @2\t",
-						"/// @3\t"
+						"/// @brief\t",
+						"/// @param\t",
+						"/// @retval\t"
 					],
-					"description": "@1: @brief @2: @param @3: @retval"
+					"description": "doxgenコメントのテンプレート"
 				},
-				"my-extensions.comment.function.display-void.@param": {
+				"Function Comment.Display Void": {
 					"type": "boolean",
-					"default": true
-				},
-				"my-extensions.comment.function.display-void.@retval": {
-					"type": "boolean",
-					"default": true
+					"default": "true",
+					"description": "voidの時コメントを生成する"
 				}
 			}
 		}
