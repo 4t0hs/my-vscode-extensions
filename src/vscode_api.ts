@@ -1,4 +1,3 @@
-import { error } from "console";
 import * as vscode from "vscode";
 
 export namespace VscodeApi {
@@ -7,7 +6,7 @@ export namespace VscodeApi {
 
 		constructor(activeEditor: vscode.TextEditor | undefined) {
 			if (activeEditor === undefined) {
-				throw new Error("Undefined Active Text Editro.");
+				throw new Error("Undefined Active Text Editor.");
 			}
 			this._activeEditor = activeEditor;
 		}
@@ -15,17 +14,6 @@ export namespace VscodeApi {
 		get selectedText(): string {
 			let document: vscode.TextDocument = this._activeEditor.document;
 			return document.getText(this._activeEditor.selection);
-		}
-
-		public getSelectedTextAll(): string[] {
-			let selectedTexts: string[] = [];
-
-			for (let i = 0; i < this._activeEditor.selections.length; i++) {
-				selectedTexts.push(
-					this._activeEditor.document.getText(this._activeEditor.selections[i])
-				);
-			}
-			return selectedTexts;
 		}
 
 		get languageId(): string {

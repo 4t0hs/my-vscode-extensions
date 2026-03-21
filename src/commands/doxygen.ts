@@ -1,28 +1,13 @@
-import { secureHeapUsed } from "crypto";
-import { resourceUsage } from "process";
-import { stringify } from "querystring";
-
 export namespace Doxygen {
 	export class Generator {
 		private _template: string[];
-		private _lineCode: string;
 
 		private _brief: string = "";
 		private _params: string[] = [];
 		private _retvals: string[] = [];
 
-		constructor(template: string[], lineCode: string = "\r\n") {
+		constructor(template: string[]) {
 			this._template = template;
-			this._lineCode = lineCode;
-		}
-		public makeAll(params: string[] = [], retvals: string[] = []): string {
-			const summary: string = "";
-			let lines: string[] = [];
-
-			this.makeBriefPart(summary);
-			this.makeParamParts(params);
-			this.makeRetvalParts(retvals);
-			return lines.join(this._lineCode);
 		}
 		public concat(): string[] {
 			let comment: string[] = [];

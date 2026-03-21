@@ -1,13 +1,5 @@
 import { workspace, WorkspaceConfiguration } from "vscode";
 
-function joinKey(...args: string[]): string {
-	const result: string | undefined = args.join(".");
-	if (result === undefined) {
-		return "";
-	}
-	return result;
-}
-
 export class FunctionCommentConfig {
 	private static _ROOT: string = "Function Comment";
 	private static _KEY_FUNCTION_COMMENT: string = FunctionCommentConfig._ROOT;

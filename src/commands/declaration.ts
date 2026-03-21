@@ -14,7 +14,7 @@ export class DeclarationFunction {
 		} else {
 			limitLine = cursorLine - range;
 		}
-		
+
 		for (let l = cursorLine; l > limitLine; l--) {
 			const lineText = editor.document.lineAt(l).text;
 			if (this.isDeclaration(lineText)) {
@@ -29,12 +29,12 @@ export class DeclarationFunction {
 	private isDeclaration(text: string): boolean {
 		const invalidWords: string[] = ["#", "typedef"];
 		const declarationPattern: RegExp = /[0-9a-zA-Z_*]+[ \t]+[0-9a-zA-Z_*]+[ \t]*\(/g;
-		const formated: string = this.excludeCommentOut(text);
+		const formatted: string = this.excludeCommentOut(text);
 
-		if (!declarationPattern.test(formated)) {
+		if (!declarationPattern.test(formatted)) {
 			return false;
 		}
-		if (this.isContainInvalidWords(formated, invalidWords)) {
+		if (this.isContainInvalidWords(formatted, invalidWords)) {
 			return false;
 		}
 		return true;
@@ -42,12 +42,11 @@ export class DeclarationFunction {
 
 	private excludeCommentOut(src: string): string {
 		const commentOutWords: string[] = ["//", "/*"];
-		let result: string = src;
 
 		for (const word of commentOutWords) {
-			result = UtilText.cropAt(src, word);
-			if (result) {
-				return result;
+			const index = src.indexOf(word);
+			if (index >= 0) {
+				return src.slice(0, index);
 			}
 		}
 		return src;

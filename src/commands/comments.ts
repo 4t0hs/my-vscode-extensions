@@ -1,5 +1,5 @@
 import { window, Position } from "vscode";
-import { FunctionCommentConfig } from "../config/configration";
+import { FunctionCommentConfig } from "../config/configuration";
 import { VscodeApi } from "../vscode_api";
 import { DeclarationFunction } from "./declaration";
 import { Function } from "./function";
@@ -23,7 +23,7 @@ export namespace Comment {
 		if (!declaration.search(editor.activeEditor, editor.cursorLine, 5)) {
 			return;
 		}
-		let parser: Function.DecrarationParser = new Function.DecrarationParser(declaration.text);
+		let parser: Function.DeclarationParser = new Function.DeclarationParser(declaration.text);
 		// 引数を取得する
 		const paramNames: string[] = parser.parseParamNames();
 		if (paramNames.length === 0) {
@@ -54,13 +54,7 @@ export namespace Comment {
 	 * 無効な言語
 	 */
 	function isInvalidLanguage(activeLanguage: string): boolean {
-		// 有効な言語
 		const validLanguages: string[] = ["c", "cpp"];
-		for (const lang of validLanguages) {
-			if (lang === activeLanguage) {
-				return false;
-			}
-		}
-		return true;
+		return !validLanguages.includes(activeLanguage);
 	}
 }

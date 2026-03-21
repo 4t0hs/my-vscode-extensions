@@ -2,29 +2,29 @@ import { match } from "assert";
 import { UtilText } from "../utility/text";
 
 export namespace Function {
-	export class DecrarationParser {
+	export class DeclarationParser {
 		private readonly LEFT_BRACKET: string = "(";
 		private readonly RIGHT_BRACKET: string = ")";
 
 		// public returnType: string = "";
 		// public name: string = "";
 
-		private _decraration: string = "";
-		private _argmentPart: string = "";
+		private _declaration: string = "";
+		private _argumentPart: string = "";
 		private _nonArgumentPart: string = "";
 
 		constructor(declaration: string) {
-			this._decraration = this.formatDeclaration(declaration);
+			this._declaration = this.formatDeclaration(declaration);
 			// 引数の部分とそれ以外に分ける
-			const restPart: string = this.divideToArgmentAndRest();
+			const restPart: string = this.divideToArgumentAndRest();
 			this._nonArgumentPart = restPart;
 		}
 		/**
 		 * パラメータ名を取得する
 		 */
 		public parseParamNames(): string[] {
-			const formated: string = UtilText.replaceAll(this._argmentPart, "*", " "); // ポインタはいらないので消す
-			const args: string[] = formated.split(",");
+			const formatted: string = UtilText.replaceAll(this._argumentPart, "*", " "); // ポインタはいらないので消す
+			const args: string[] = formatted.split(",");
 
 			if (args.length <= 0) {
 				return [];
@@ -60,9 +60,9 @@ export namespace Function {
 		 * パターンにマッチしているか
 		 */
 		private matchArgument(arg: string, pattern: RegExp): string | undefined {
-			let matches: RegExpMatchArray | null = arg.match(pattern);
+			const matches: RegExpMatchArray | null = arg.match(pattern);
 
-			if (matches !== null && matches.length > 0) {
+			if (matches !== null && matches.length > 1) {
 				return matches[1];
 			}
 			return undefined;
@@ -93,12 +93,12 @@ export namespace Function {
 		/**
 		 * 引数のとそれ以外の部分に分解する
 		 */
-		private divideToArgmentAndRest(): string {
-			let firstBracketIndex: number = this._decraration.indexOf(this.LEFT_BRACKET);
-			let lastBracketIndex: number = this._decraration.lastIndexOf(this.RIGHT_BRACKET);
+		private divideToArgumentAndRest(): string {
+			let firstBracketIndex: number = this._declaration.indexOf(this.LEFT_BRACKET);
+			let lastBracketIndex: number = this._declaration.lastIndexOf(this.RIGHT_BRACKET);
 
-			this._argmentPart = this._decraration.slice(firstBracketIndex + 1, lastBracketIndex);
-			return this._decraration.slice(0, firstBracketIndex);
+			this._argumentPart = this._declaration.slice(firstBracketIndex + 1, lastBracketIndex);
+			return this._declaration.slice(0, firstBracketIndex);
 		}
 		/**
 		 * 関数宣言をフォーマットする

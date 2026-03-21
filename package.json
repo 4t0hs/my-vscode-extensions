@@ -1,8 +1,8 @@
 {
-	"name": "my-extensions",
-	"displayName": "My Extensions",
+	"name": "doxygen-comment",
+	"displayName": "Doxygen Comment",
 	"publisher": "",
-	"description": "",
+	"description": "C/C++関数の前にDoxygenスタイルのコメントテンプレートを自動生成します。",
 	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.85.0"
@@ -15,32 +15,32 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "my-extensions.func-comment",
-				"title": "Function comment"
+				"command": "doxygen-comment.generate",
+				"title": "Generate Doxygen Comment"
 			}
 		],
 		"keybindings": [
 			{
-				"command": "my-extensions.func-comment",
+				"command": "doxygen-comment.generate",
 				"key": "alt+e f"
 			}
 		],
 		"configuration": {
 			"type": "object",
-			"title": "My Extensions",
+			"title": "Doxygen Comment",
 			"properties": {
 				"Function Comment.Template": {
 					"type": "array",
 					"default": [
-						"/// @brief\t",
-						"/// @param\t",
-						"/// @retval\t"
+						"//! @brief\t",
+						"//! @param\t",
+						"//! @retval\t"
 					],
 					"description": "doxgenコメントのテンプレート"
 				},
 				"Function Comment.Display Void": {
 					"type": "boolean",
-					"default": "true",
+					"default": true,
 					"description": "voidの時コメントを生成する"
 				}
 			}
@@ -64,12 +64,16 @@
 		"@types/vscode": "^1.85.0",
 		"@typescript-eslint/eslint-plugin": "^6.13.1",
 		"@typescript-eslint/parser": "^6.13.1",
-		"@vscode/test-cli": "^0.0.4",
+		"@vscode/test-cli": "^0.0.11",
 		"@vscode/test-electron": "^2.3.8",
 		"eslint": "^8.54.0",
 		"ts-loader": "^9.5.1",
 		"typescript": "^5.3.2",
 		"webpack": "^5.89.0",
 		"webpack-cli": "^5.1.4"
+	},
+	"overrides": {
+		"serialize-javascript": "^7.0.3",
+		"diff": "^8.0.3"
 	}
 }

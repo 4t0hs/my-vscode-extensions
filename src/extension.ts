@@ -6,7 +6,7 @@ import { Comment } from "./commands/comments";
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	let disposable = vscode.commands.registerTextEditorCommand("my-extensions.func-comment", () => {
+	let disposable = vscode.commands.registerTextEditorCommand("doxygen-comment.generate", () => {
 		Comment.printFunctionComment();
 	});
 
